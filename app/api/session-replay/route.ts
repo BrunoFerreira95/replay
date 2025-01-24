@@ -12,6 +12,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ message: 'Events saved successfully!' });
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error saving events:', error);
     return NextResponse.json(
@@ -33,6 +34,7 @@ export async function GET(req: NextRequest) {
       const sessions = await getAllSessions();
       return NextResponse.json(sessions);
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error fetching data:', error);
     return NextResponse.json(

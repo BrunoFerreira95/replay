@@ -3,37 +3,42 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import SessionRecorder from "@/utils/sessionRecorder"; // Importe a classe SessionRecorder
 
+// Custom Window to have our flag
 interface CustomWindow extends Window {
   __isRecorderInitialized?: boolean;
 }
 
 export default function Home() {
-    const recorder = new SessionRecorder()
-
-    useEffect(() => {
+   // Create an instance of SessionRecorder and keep it stable across renders
+   
+   useEffect(() => {
+       const recorder = new SessionRecorder();
+       // Check if the code is running on the client
         if (typeof window !== "undefined") {
+            // Get the window object and cast to our custom type
             const customWindow = window as CustomWindow;
-
+            // Check if the recorder was initialized previously
            if (!customWindow.__isRecorderInitialized) {
                 console.log("Iniciando o recorder...");
-               try{
+                try{
+                  // If not initialized, call the startRecording method
                    recorder.startRecording();
-
+                   // Set the event listener for `beforeunload` to call the `stopRecording` method before the page is unloaded
                    customWindow.addEventListener("beforeunload", () => {
                         recorder.stopRecording();
                    });
-
                      console.log("Recorder iniciado com sucesso.");
+                   // Sets the flag to prevent re-initialization
                 customWindow.__isRecorderInitialized = true;
                }
                catch(err) {
+                    // Logs the error to the console in case of issues
                    console.error("Error initializing recorder:", err)
                }
-
-              }
-
+            }
         }
-    }, []); // Esse array vazio garante que o efeito só seja executado no lado cliente
+    }, []); // The empty array prevents rerunning this effect except on component mount
+
 
     return (
         <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
