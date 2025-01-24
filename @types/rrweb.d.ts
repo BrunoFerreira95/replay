@@ -1,5 +1,5 @@
 // rrweb.d.ts
-declare module 'rrweb' {
+declare module 'rrwebb' {
     interface RrwebEvent {
           type: number;
           timestamp: number;

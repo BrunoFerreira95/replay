@@ -1,6 +1,6 @@
 import React, { useImperativeHandle, useRef, forwardRef, useEffect, memo, useState } from 'react';
 import rrwebPlayer from 'rrweb-player'; // Import the Svelte component
-import type { RrwebEvent } from 'rrweb';
+import type { RrwebEvent } from 'rrwebb';
 interface ReplayerProps {
     events: RrwebEvent[];
     height: number;
