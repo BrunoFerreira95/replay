@@ -3,6 +3,7 @@ declare module 'rrwebb' {
     interface RrwebEvent {
           type: number;
           timestamp: number;
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           data: any;
     }
     export const enum EventType {
